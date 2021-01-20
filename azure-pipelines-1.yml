@@ -16,6 +16,12 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 2.2.203
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
@@ -29,7 +35,7 @@ steps:
   inputs:
     updateType: 'Manifest versions'
     versionSuffix: '.$(Build.BuildNumber)'
-    updateOnlyChanged: true
+    updateOnlyChanged: false
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'

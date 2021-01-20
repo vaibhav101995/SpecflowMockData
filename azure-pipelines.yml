@@ -24,11 +24,7 @@ steps:
     feedsToUse: 'select'
 
 - task: NuGetToolInstaller@1
-- task: NuGetCommand@2
-  inputs:
-    command: 'restore'
-    restoreSolution: '**/*.sln'
-    feedsToUse: 'select'
+
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
@@ -52,28 +48,28 @@ steps:
 #  inputs:
 #    command: 'build'
 
-- task: VSTest@2
-  inputs:
-     testSelector: 'testAssemblies'
-     testAssemblyVer2: |
-       **\*Outside.OrderStreamSync.dll
-       !**\*TestAdapter.dll
-       !**\obj\**
-     searchFolder: '$(System.DefaultWorkingDirectory)'
-     vsTestVersion: '16.0'
+#- task: VSTest@2
+#  inputs:
+#     testSelector: 'testAssemblies'
+#     testAssemblyVer2: |
+#       **\*Outside.OrderStreamSync.dll
+#       !**\*TestAdapter.dll
+#       !**\obj\**
+#     searchFolder: '$(System.DefaultWorkingDirectory)'
+#     vsTestVersion: '16.0'
     
 #- task: DotNetCoreCLI@2
 #  inputs:
 #    command: 'test'
     
-#- task: VSTest@2
-#  inputs:
-#     testSelector: 'testAssemblies'
-#     testAssemblyVer2: |
-#      **\*test*.dll
-#      !**\*TestAdapter.dll
-#      !**\obj\**
-#     searchFolder: '$(System.DefaultWorkingDirectory)'
+- task: VSTest@2
+  inputs:
+     testSelector: 'testAssemblies'
+     testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+     searchFolder: '$(System.DefaultWorkingDirectory)'
 
 #- task: ArchiveFiles@2
 #  inputs:

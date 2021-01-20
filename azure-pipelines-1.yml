@@ -1,0 +1,71 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*Outside.OrderStreamSync.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 3.0.3
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'restore'
+#    projects: '**/*Outside.OrderStreamSync.csproj'
+#    feedsToUse: 'select'
+#    vstsFeed: 'fcde6b04-8879-4743-9976-4cf022591fac'
+#- task: NuGetCommand@2
+#  inputs:
+#    restoreSolution: '$(solution)'
+#- task: ServiceFabricUpdateManifests@2
+#  inputs:
+#    updateType: 'Manifest versions'
+#    versionSuffix: '.$(Build.BuildNumber)'
+#    updateOnlyChanged: false
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+#- task: VSTest@2
+#  inputs:
+#    platform: '$(buildPlatform)'
+#    configuration: '$(buildConfiguration)'
+
+#- task: VSTest@2
+#  inputs:
+#    testSelector: 'testAssemblies'
+#    testAssemblyVer2: |
+#      **\*test*.dll
+#      !**\*TestAdapter.dll
+#      !**\obj\**
+#    searchFolder: '$(System.DefaultWorkingDirectory)'
+- task: VisualStudioTestPlatformInstaller@1
+  inputs:
+    packageFeedSelector: 'nugetOrg'
+    versionSelector: 'latestPreRelease'
+- task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*Outside.OrderStreamSync*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    vsTestVersion: 'toolsInstaller'

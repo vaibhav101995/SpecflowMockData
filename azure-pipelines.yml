@@ -30,9 +30,13 @@ steps:
     restoreSolution: '$(solution)'
 - task: MSBuild@1
   inputs:
-    solution: '**/*Outside.OrderStreamSync.sln'
-    msbuildVersion: '12.0'
-    msbuildArchitecture: 'x64'
+        solution: '**/*.sln'
+
+#- task: MSBuild@1
+#  inputs:
+#    solution: '**/*.sln'
+#    msbuildVersion: '12.0'
+#    msbuildArchitecture: 'x64'
 #- task: DotNetCoreCLI@2
 #  inputs:
 #    command: 'build'
@@ -41,7 +45,7 @@ steps:
   inputs:
      testSelector: 'testAssemblies'
      testAssemblyVer2: |
-       **\*testhost.dll
+       **\*.dll
        !**\*TestAdapter.dll
        !**\obj\**
      searchFolder: '$(System.DefaultWorkingDirectory)'
@@ -74,7 +78,7 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
+#- task: PublishTestResults@2
+#  inputs:
+#    testResultsFormat: 'JUnit'
+#    testResultsFiles: '**/TEST-*.xml'

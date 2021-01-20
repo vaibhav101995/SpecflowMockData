@@ -16,7 +16,12 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
-
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    feedsToUse: 'select'
+    vstsFeed: 'fcde6b04-8879-4743-9976-4cf022591fac'
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
@@ -41,6 +46,16 @@ steps:
 #      !**\*TestAdapter.dll
 #      !**\obj\**
 #    searchFolder: '$(System.DefaultWorkingDirectory)'
-- task: DotNetCoreCLI@2
+- task: VisualStudioTestPlatformInstaller@1
   inputs:
-    command: 'test'
+    packageFeedSelector: 'nugetOrg'
+    versionSelector: 'latestPreRelease'
+- task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    vsTestVersion: 'toolsInstaller'

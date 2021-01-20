@@ -28,9 +28,9 @@ steps:
 #    projects: '**/*Outside.OrderStreamSync.csproj'
 #    feedsToUse: 'select'
 #    vstsFeed: 'fcde6b04-8879-4743-9976-4cf022591fac'
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+#- task: NuGetCommand@2
+#  inputs:
+#    restoreSolution: '$(solution)'
 #- task: ServiceFabricUpdateManifests@2
 #  inputs:
 #    updateType: 'Manifest versions'

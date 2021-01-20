@@ -41,7 +41,7 @@ steps:
   inputs:
      testSelector: 'testAssemblies'
      testAssemblyVer2: |
-       **\*Outside.OrderStreamSync*.dll
+       **\*testhost.dll*.dll
        !**\*TestAdapter.dll
        !**\obj\**
      searchFolder: '$(System.DefaultWorkingDirectory)'

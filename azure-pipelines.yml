@@ -63,17 +63,18 @@ steps:
   inputs:
     packageFeedSelector: 'nugetOrg'
     versionSelector: 'latestPreRelease'
-- task: VSTest@2
-  inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*test*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-#- task: DotNetCoreCLI@2
+#- task: VSTest@2
 #  inputs:
-#    command: 'test'
+#    testSelector: 'testAssemblies'
+#    testAssemblyVer2: |
+#      **\*test*.dll
+#      !**\*TestAdapter.dll
+#      !**\obj\**
+#    searchFolder: '$(System.DefaultWorkingDirectory)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
     
 #- task: VSTest@2
 #  inputs:

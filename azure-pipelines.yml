@@ -24,7 +24,9 @@ steps:
     feedsToUse: 'select'
 
 - task: NuGetToolInstaller@1
-
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: 5.8
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'

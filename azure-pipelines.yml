@@ -28,9 +28,16 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-- task: MSBuild@1
+    
+#- task: MSBuild@1
+#  inputs:
+#        solution: '**/*.sln'
+        
+- task: VSBuild@1
   inputs:
-        solution: '**/*.sln'
+    solution: '**\*.sln'
+    vsVersion: '16.0'
+    restoreNugetPackages: true
 
 #- task: MSBuild@1
 #  inputs:
@@ -45,7 +52,7 @@ steps:
   inputs:
      testSelector: 'testAssemblies'
      testAssemblyVer2: |
-       **\*.dll
+       **\*Outside.OrderStreamSync.dll
        !**\*TestAdapter.dll
        !**\obj\**
      searchFolder: '$(System.DefaultWorkingDirectory)'

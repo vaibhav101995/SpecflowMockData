@@ -25,7 +25,11 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-
+- task: ServiceFabricUpdateManifests@2
+  inputs:
+    updateType: 'Manifest versions'
+    versionSuffix: '.$(Build.BuildNumber)'
+    updateOnlyChanged: false
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'

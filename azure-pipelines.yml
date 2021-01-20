@@ -14,7 +14,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
- # MSBUILDSINGLELOADCONTEXT: '1'
+  MSBUILDSINGLELOADCONTEXT: '1'
  
 steps:
 - task: NuGetCommand@2
@@ -24,7 +24,11 @@ steps:
     feedsToUse: 'select'
 
 - task: NuGetToolInstaller@1
-
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'select'
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'

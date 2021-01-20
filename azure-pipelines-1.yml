@@ -29,7 +29,7 @@ steps:
   inputs:
     updateType: 'Manifest versions'
     versionSuffix: '.$(Build.BuildNumber)'
-    updateOnlyChanged: false
+    updateOnlyChanged: true
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'

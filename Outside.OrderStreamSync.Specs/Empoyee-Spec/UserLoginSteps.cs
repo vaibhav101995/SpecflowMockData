@@ -41,7 +41,7 @@ namespace Outside.OrderStreamSync.Specs.Empoyee_Spec
         [Then(@"validate '(.*)' on the screen && user can able to see Employee Dashboard")]
         public void ThenValidateOnTheScreenUserCanAbleToSeeEmployeeDashboard(string p0)
         {
-            UserVerify useExample = new UserVerify("t@test.com", "NewUser123");
+            UserVerify useExample = new UserVerify("a@gmail.com", "NewUser123");
             _empPersisterMock.Verify(p => p.UserStore(It.Is<UserData>(actualData => useExample.Matches(actualData))));
 
         }

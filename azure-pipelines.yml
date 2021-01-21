@@ -102,7 +102,7 @@ steps:
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
-    publishLocation: 'Container'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
 
 #- task: PublishTestResults@2
 #  inputs:

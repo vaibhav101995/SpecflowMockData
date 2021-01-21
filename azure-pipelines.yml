@@ -39,6 +39,7 @@ steps:
     solution: '**\*.sln'
     vsVersion: '16.0'
     restoreNugetPackages: true
+    arguments: '-c Release'
 
 #- task: MSBuild@1
 #  inputs:
@@ -85,13 +86,13 @@ steps:
 #      !**\obj\**
 #     searchFolder: '
 
-#- task: ArchiveFiles@2
-#  inputs:
-#    rootFolderOrFile: '$(Build.BinariesDirectory)'
-#    includeRootFolder: true
-#    archiveType: 'zip'
-#    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-#    replaceExistingArchive: true
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
@@ -102,8 +103,7 @@ steps:
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
-    publishLocation: 'Container'
-
+   
 #- task: PublishTestResults@2
 #  inputs:
 #    testResultsFormat: 'JUnit'

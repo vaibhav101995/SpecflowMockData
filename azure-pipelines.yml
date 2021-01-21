@@ -103,13 +103,6 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
    
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Free Trial (f9aeb233-f667-4d9a-922a-c4aef2146c15)'
-    appType: 'apiApp'
-    WebAppName: 
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
 #- task: PublishTestResults@2
 #  inputs:
 #    testResultsFormat: 'JUnit'

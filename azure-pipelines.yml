@@ -39,6 +39,7 @@ steps:
     solution: '**\*.sln'
     vsVersion: '16.0'
     restoreNugetPackages: true
+    arguments: 'c Release'
 
 #- task: MSBuild@1
 #  inputs:

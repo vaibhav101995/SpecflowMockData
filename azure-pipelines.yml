@@ -53,17 +53,17 @@ steps:
   inputs:
     command: 'test'
     
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    arguments: '(Build.ArtifactStagingDirectory)'
-
-#- task: CopyFiles@2
+#- task: DotNetCoreCLI@2
 #  inputs:
-#    SourceFolder: '$(System.DefaultWorkingDirectory)'
-#    Contents: '**'
-#    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+#    command: 'publish'
+#    publishWebProjects: true
+#    arguments: '(Build.ArtifactStagingDirectory)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:

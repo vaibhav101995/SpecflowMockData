@@ -10,18 +10,18 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-#variables:
-#  solution: '**/*.sln'
-#  buildPlatform: 'Any CPU'
-#  buildConfiguration: 'Release'
- # MSBUILDSINGLELOADCONTEXT: '1'
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  MSBUILDSINGLELOADCONTEXT: '1'
  
 steps:
-#- task: NuGetCommand@2
-#  inputs:
-#    command: 'restore'
-#    restoreSolution: '**/*.sln'
-#    feedsToUse: 'select'
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'select'
 
 - task: NuGetToolInstaller@1
   inputs:

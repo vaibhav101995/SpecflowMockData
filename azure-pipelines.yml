@@ -31,22 +31,23 @@ steps:
     restoreSolution: '$(solution)'
     
         
-#- task: VSBuild@1
-#  inputs:
-#    solution: '**\*.sln'
-#    vsVersion: '16.0'
-#    restoreNugetPackages: true
-#    arguments: '-c Release'
-    
-- task: DotNetCoreCLI@2
+- task: VSBuild@1
   inputs:
-    command: 'build'
+    solution: '**\*.sln'
+    vsVersion: '16.0'
+    restoreNugetPackages: true
     arguments: '-c Release'
+    
 
-- task: VisualStudioTestPlatformInstaller@1
-  inputs:
-    packageFeedSelector: 'nugetOrg'
-    versionSelector: 'latestPreRelease'
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'build'
+#    arguments: '-c Release'
+
+#- task: VisualStudioTestPlatformInstaller@1
+#  inputs:
+#    packageFeedSelector: 'nugetOrg'
+#    versionSelector: 'latestPreRelease'
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -56,7 +57,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '(Build.ArtifactStagingDirectory)/API'
+    arguments: '(Build.ArtifactStagingDirectory)'
 
 #- task: CopyFiles@2
 #  inputs:

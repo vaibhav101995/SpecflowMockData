@@ -30,9 +30,6 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
     
-#- task: MSBuild@1
-#  inputs:
-#        solution: '**/*.sln'
         
 - task: VSBuild@1
   inputs:
@@ -40,59 +37,28 @@ steps:
     vsVersion: '16.0'
     restoreNugetPackages: true
     arguments: '-c Release'
+    
 
-#- task: MSBuild@1
-#  inputs:
-#    solution: '**/*.sln'
-#    msbuildVersion: '12.0'
-#    msbuildArchitecture: 'x64'
 #- task: DotNetCoreCLI@2
 #  inputs:
 #    command: 'build'
+#    arguments: '-c Release'
 
-#- task: VSTest@2
+#- task: VisualStudioTestPlatformInstaller@1
 #  inputs:
-#     testSelector: 'testAssemblies'
-#     testAssemblyVer2: |
-#       **\*Outside.OrderStreamSync.dll
-#       !**\*TestAdapter.dll
-#       !**\obj\**
-#     searchFolder: '$(System.DefaultWorkingDirectory)'
-#     vsTestVersion: '16.0'
-    
-- task: VisualStudioTestPlatformInstaller@1
-  inputs:
-    packageFeedSelector: 'nugetOrg'
-    versionSelector: 'latestPreRelease'
-#- task: VSTest@2
-#  inputs:
-#    testSelector: 'testAssemblies'
-#    testAssemblyVer2: |
-#      **\*test*.dll
-#      !**\*TestAdapter.dll
-#      !**\obj\**
-#    searchFolder: '$(System.DefaultWorkingDirectory)'
+#    packageFeedSelector: 'nugetOrg'
+#    versionSelector: 'latestPreRelease'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
     
-#- task: VSTest@2
+#- task: DotNetCoreCLI@2
 #  inputs:
-#     testSelector: 'testAssemblies'
-#     testAssemblyVer2: |
-#      **\*test*.dll
-#      !**\*TestAdapter.dll
-#      !**\obj\**
-#     searchFolder: '
+#    command: 'publish'
+#    publishWebProjects: true
+#    arguments: '(Build.ArtifactStagingDirectory)'
 
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
@@ -104,7 +70,3 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
    
-#- task: PublishTestResults@2
-#  inputs:
-#    testResultsFormat: 'JUnit'
-#    testResultsFiles: '**/TEST-*.xml'

@@ -10,11 +10,11 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-  MSBUILDSINGLELOADCONTEXT: '1'
+#variables:
+#  solution: '**/*.sln'
+#  buildPlatform: 'Any CPU'
+#  buildConfiguration: 'Release'
+ # MSBUILDSINGLELOADCONTEXT: '1'
  
 steps:
 #- task: NuGetCommand@2
@@ -31,26 +31,38 @@ steps:
     restoreSolution: '$(solution)'
     
         
-- task: VSBuild@1
-  inputs:
-    solution: '**\*.sln'
-    vsVersion: '16.0'
-    restoreNugetPackages: true
-    arguments: '-c Release'
+#- task: VSBuild@1
+#  inputs:
+#    solution: '**\*.sln'
+#    vsVersion: '16.0'
+#    restoreNugetPackages: true
+#    arguments: '-c Release'
     
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: '-c Release'
+
 - task: VisualStudioTestPlatformInstaller@1
   inputs:
     packageFeedSelector: 'nugetOrg'
     versionSelector: 'latestPreRelease'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
     
-- task: CopyFiles@2
+- task: DotNetCoreCLI@2
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '(Build.ArtifactStagingDirectory)/API'
+
+#- task: CopyFiles@2
+#  inputs:
+#    SourceFolder: '$(System.DefaultWorkingDirectory)'
+#    Contents: '**'
+#    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:

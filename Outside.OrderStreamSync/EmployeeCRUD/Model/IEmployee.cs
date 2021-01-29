@@ -15,5 +15,18 @@ namespace Outside.OrderStreamSync
         Task RemoveEmp(Emp empdetail);
 
         Task UserStore(UserData Userdetail);
+
+        //Addition
+        Task UserLeave(LeaveData Leavedetail);
+        //Addition
+        Task UserLeave1(LeaveData Leavedt);
+
+        Task Approve(EmployeeLeaveDetails approve);
+
+        Task Persist(EmployeeLeaveDetails employee1);
+
+        Task ApproveLeave(EmployeeLeaveDetails update);
+
+        Task RejectLeave(EmployeeLeaveDetails update);
     }
 }

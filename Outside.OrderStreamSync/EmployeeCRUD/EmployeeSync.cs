@@ -48,5 +48,42 @@ namespace Outside.OrderStreamSync
             await _emplPersister.UserStore(userData);
         }
 
+        //AddLeave Function
+
+        public async Task AddLeave(LeaveRequest lruser)
+        {
+
+            var userData1 = _employeeFactory.AddLeave(lruser);
+            await _emplPersister.UserLeave(userData1);
+        }
+        //AddLeave1 Function
+        public async Task AddLeave1(LeaveRequest lruser)
+        {
+
+            var userData1 = _employeeFactory.AddLeave1(lruser);
+            await _emplPersister.UserLeave1(userData1);
+        }
+
+        public async Task Sync(EmployeeLeaveDetails emp)
+        {
+            //var departmentId = 0;
+            var employee1 = _employeeFactory.LeaveApproval(emp);
+            await _emplPersister.Persist(employee1);
+        }
+
+        public async Task ApproveEmpLeave(EmployeeLeaveDetails emp)
+        {
+            var empName = emp.EmployeeName;
+            var employee = _employeeFactory.ApproveEmpLeave(emp, empName);
+            await _emplPersister.ApproveLeave(employee);
+
+        }
+
+        public async Task RejectEmpLeave(EmployeeLeaveDetails emp)
+        {
+            var empName = emp.EmployeeName;
+            var employee = _employeeFactory.RejectEmpLeave(emp, empName);
+            await _emplPersister.RejectLeave(employee);
+        }
     }
 }
